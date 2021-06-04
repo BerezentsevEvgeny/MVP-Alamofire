@@ -10,7 +10,6 @@ import UIKit
 class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UserPresenterDelegate {
     
     private let presenter = UserPresenter()
-    
     private var users: [User] = []
 
     // Create TableView
@@ -40,7 +39,6 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.frame = view.bounds
     }
     
-    // TableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         users.count
     }
@@ -52,14 +50,12 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // Ask presenter to handle the tap
         presenter.didTap(user: users[indexPath.row])
     }
     
-    // Presenter delegate
     func presentUsers(users: [User]) {
         self.users = users
         DispatchQueue.main.async {

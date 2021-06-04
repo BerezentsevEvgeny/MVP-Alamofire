@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 
-// Delegation Protocol
+
 protocol UserPresenterDelegate: AnyObject {
-    
     func presentUsers(users: [User])
     func presentAlert(title: String, message: String)
 }
@@ -36,11 +35,9 @@ class UserPresenter {
             catch {
                 print(String(describing: error))
             }
-            
         }
         task.resume()
     }
-    
     
     public func didTap(user: User) {
          delegate?.presentAlert(
