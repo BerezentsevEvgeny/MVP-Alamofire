@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 
 protocol UserPresenterDelegate: AnyObject {
@@ -26,17 +27,18 @@ class UserPresenter {
     
     public func getUsers() {
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let data = data, error == nil else { return }
+        
+        AF.request(url).responseData { response in
+            guard let data = response.data, response.error == nil else { return }
             do {
                 let users = try JSONDecoder().decode([User].self, from: data)
-                self?.delegate?.presentUsers(users: users)
+                self.delegate?.presentUsers(users: users)
             }
             catch {
-                print(String(describing: error))
+                print(String(describing: response.error))
             }
         }
-        task.resume()
+        
     }
     
     public func didTap(user: User) {
