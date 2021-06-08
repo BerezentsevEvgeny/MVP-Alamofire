@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 import Alamofire
 
-
 protocol UserPresenterDelegate: AnyObject {
     func presentUsers(users: [User])
     func presentAlert(title: String, message: String)
@@ -38,7 +37,6 @@ class UserPresenter {
                 print(String(describing: response.error))
             }
         }
-        
     }
     
     public func didTap(user: User) {
@@ -46,5 +44,4 @@ class UserPresenter {
             title: user.name,
             message: "\(user.name) has an email of \(user.email) & username of \(user.username)")
     }
-    
 }
